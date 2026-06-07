@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opeyemi Toriola | Cloud Security Engineer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0a0e1a;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10,14,26,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #1e293b;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: 1px;
+    }
+    .nav-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #38bdf8; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background: radial-gradient(ellipse at top, #0f172a 0%, #0a0e1a 70%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .badge {
+      display: inline-block;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.3);
+      color: #38bdf8;
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: #38bdf8; }
+    .hero p {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: #38bdf8;
+      color: #0a0e1a;
+    }
+    .btn-primary:hover { background: #7dd3fc; }
+    .btn-secondary {
+      background: transparent;
+      color: #38bdf8;
+      border: 1px solid #38bdf8;
+    }
+    .btn-secondary:hover {
+      background: rgba(56,189,248,0.1);
+    }
+
+    /* STATS */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 3rem 2rem;
+      background: #0f172a;
+      border-top: 1px solid #1e293b;
+      border-bottom: 1px solid #1e293b;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .section-title span { color: #38bdf8; }
+    .section-subtitle {
+      color: #64748b;
+      margin-bottom: 3rem;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-4px);
+    }
+    .project-card:hover::before { opacity: 1; }
+    .project-tag {
+      display: inline-block;
+      background: rgba(56,189,248,0.1);
+      color: #38bdf8;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .project-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+    .project-card p {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+    }
+    .project-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+    .project-features li {
+      font-size: 0.85rem;
+      color: #64748b;
+      padding: 0.25rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .project-features li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #38bdf8;
+    }
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .stack-tag {
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+    .project-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .project-link:hover { text-decoration: underline; }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-category {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .skill-category h3 {
+      font-size: 0.9rem;
+      color: #38bdf8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .skill-tag {
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .about-text p {
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+    .about-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .highlight {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-left: 3px solid #38bdf8;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+    }
+    .highlight h4 { font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .highlight p { font-size: 0.85rem; color: #64748b; margin: 0; }
+
+    /* CONTACT */
+    .contact-section {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: #0f172a;
+      border-top: 1px solid #1e293b;
+    }
+    .contact-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .contact-section p {
+      color: #94a3b8;
+      margin-bottom: 2rem;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .contact-link:hover {
+      background: #38bdf8;
+      color: #0a0e1a;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #334155;
+      font-size: 0.85rem;
+      border-top: 1px solid #1e293b;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .stats { gap: 2rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">OT</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="badge">Available for hire</div>
+      <h1>Opeyemi <span>Toriola</span></h1>
+      <h1 style="font-size:clamp(1.5rem,4vw,2.5rem);font-weight:600;color:#94a3b8;margin-bottom:1.5rem;">
+        Cloud Security Engineer
+      </h1>
+      <p>
+        Building security automation tools that detect, correlate, 
+        and respond to threats — before a human reads the alert.
+        Offensive security roots. Cloud-native mindset.
+      </p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="https://github.com/GeekyBlessing" class="btn btn-secondary" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">38</div>
+      <div class="stat-label">Passing Tests</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4</div>
+      <div class="stat-label">SOAR Integrations</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Production Projects</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">8</div>
+      <div class="stat-label">AWS Services</div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-title">Featured <span>Projects</span></div>
+    <p class="section-subtitle">Production-grade security engineering — built from scratch</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <span class="project-tag">SOAR Platform</span>
+        <h3>Cloud-Native SOAR Platform</h3>
+        <p>
+          Full security orchestration platform ingesting alerts from 
+          4 sources, correlating them into incidents, and triggering 
+          automated playbooks — all running on AWS.
+        </p>
+        <ul class="project-features">
+          <li>HMAC-SHA256 webhook signature verification</li>
+          <li>Sliding-window IoC correlation engine</li>
+          <li>MITRE ATT&CK auto-mapping on every alert</li>
+          <li>Step Functions playbook execution</li>
+          <li>38 passing tests, green GitHub Actions CI</li>
+          <li>Prometheus metrics + structured JSON logging</li>
+        </ul>
+        <div class="project-stack">
+          <span class="stack-tag">Python 3.12</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">AWS Kinesis</span>
+          <span class="stack-tag">Step Functions</span>
+          <span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">Redis</span>
+          <span class="stack-tag">Docker</span>
+          <span class="stack-tag">Kali Linux</span>
+        </div>
+        <a href="https://github.com/GeekyBlessing/soar-platform" 
+           class="project-link" target="_blank">
+          View on GitHub →
+        </a>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">AWS Security</span>
+        <h3>GuardDuty Auto-Remediation Pipeline</h3>
+        <p>
+          6-service AWS security pipeline that automatically responds 
+          to GuardDuty findings — including a real Severity 8 incident 
+          response with full forensic audit trail.
+        </p>
+        <ul class="project-features">
+          <li>Detected real Severity 8 IAM incident</li>
+          <li>MITRE ATT&CK mapping + dynamic risk scoring</li>
+          <li>EC2 forensic isolation + IAM lockdown</li>
+          <li>CloudTrail forensic correlation</li>
+          <li>90-day DynamoDB audit trail</li>
+          <li>Full Terraform IaC — one command deploy</li>
+        </ul>
+        <div class="project-stack">
+          <span class="stack-tag">AWS GuardDuty</span>
+          <span class="stack-tag">EventBridge</span>
+          <span class="stack-tag">Lambda</span>
+          <span class="stack-tag">DynamoDB</span>
+          <span class="stack-tag">Terraform</span>
+          <span class="stack-tag">Node.js</span>
+        </div>
+        <a href="https://github.com/GeekyBlessing/aws-guardduty-alerting-pipeline"
+           class="project-link" target="_blank">
+          View on GitHub →
+        </a>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag">Detection</span>
+        <h3>Network Intrusion Detection System</h3>
+        <p>
+          Lightweight Python NIDS for passive network monitoring 
+          and real-time threat detection with alerting.
+        </p>
+        <ul class="project-features">
+          <li>Passive network traffic monitoring</li>
+          <li>Real-time threat detection</li>
+          <li>Automated alerting on detection</li>
+          <li>Built on Kali Linux</li>
+        </ul>
+        <div class="project-stack">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Kali Linux</span>
+          <span class="stack-tag">Networking</span>
+        </div>
+        <a href="https://github.com/GeekyBlessing/nids-lite-"
+           class="project-link" target="_blank">
+          View on GitHub →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" style="background:#0a0e1a;max-width:100%;padding:5rem 2rem;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div class="section-title">Technical <span>Skills</span></div>
+      <p class="section-subtitle">Cloud security engineering from both sides of the attack</p>
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>Cloud Security</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">AWS GuardDuty</span>
+            <span class="skill-tag">Security Hub</span>
+            <span class="skill-tag">EventBridge</span>
+            <span class="skill-tag">IAM</span>
+            <span class="skill-tag">CloudTrail</span>
+            <span class="skill-tag">WAF</span>
+            <span class="skill-tag">Kinesis</span>
+            <span class="skill-tag">Step Functions</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>SOAR & Detection</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Alert Normalization</span>
+            <span class="skill-tag">IoC Correlation</span>
+            <span class="skill-tag">MITRE ATT&CK</span>
+            <span class="skill-tag">Playbook Automation</span>
+            <span class="skill-tag">Risk Scoring</span>
+            <span class="skill-tag">Incident Response</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>Programming</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python 3.12</span>
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">SQLAlchemy</span>
+            <span class="skill-tag">Pydantic</span>
+            <span class="skill-tag">asyncio</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>Penetration Testing</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Kali Linux</span>
+            <span class="skill-tag">Burp Suite</span>
+            <span class="skill-tag">Metasploit</span>
+            <span class="skill-tag">Nmap</span>
+            <span class="skill-tag">Wireshark</span>
+            <span class="skill-tag">OWASP ZAP</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>Infrastructure</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Terraform</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Redis</span>
+            <span class="skill-tag">AWS CLI</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3>Security Frameworks</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">MITRE ATT&CK</span>
+            <span class="skill-tag">OWASP Top 10</span>
+            <span class="skill-tag">PTES</span>
+            <span class="skill-tag">Risk Scoring</span>
+            <span class="skill-tag">Zero Trust</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-title">About <span>Me</span></div>
+    <p class="section-subtitle">Offensive security roots. Cloud-native defensive engineering.</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a Cloud Security Engineer based in Stockholm, Sweden, 
+          with a background that most security engineers don't have — 
+          I started as a penetration tester and red team contributor 
+          before moving into cloud security engineering.
+        </p>
+        <p>
+          That offensive background changes how I build defenses. 
+          I don't just implement security controls — I think about 
+          how an attacker would bypass them and build accordingly.
+        </p>
+        <p>
+          I build production-grade security tools from scratch, 
+          operating primarily on Kali Linux. My projects are 
+          open source, tested, and deployed — not just tutorials.
+        </p>
+        <br>
+        <a href="mailto:opeyemitoriola41@gmail.com" class="btn btn-primary">
+          Get In Touch
+        </a>
+      </div>
+      <div class="about-highlights">
+        <div class="highlight">
+          <h4>Real Incident Response</h4>
+          <p>Detected and responded to a real Severity 8 AWS GuardDuty finding — UnauthorizedAccess:IAMUser</p>
+        </div>
+        <div class="highlight">
+          <h4>Production Security Tooling</h4>
+          <p>Built a full SOAR platform with 38 passing tests and green CI — not a tutorial project</p>
+        </div>
+        <div class="highlight">
+          <h4>Offensive + Defensive</h4>
+          <p>Former penetration tester and cybersecurity instructor — understands both sides of the attack</p>
+        </div>
+        <div class="highlight">
+          <h4>AWS Native</h4>
+          <p>GuardDuty, Security Hub, Kinesis, Step Functions, EventBridge, IAM, WAF — production patterns throughout</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="contact-section" id="contact">
+    <h2>Let's <span style="color:#38bdf8">Work Together</span></h2>
+    <p>Open to security engineering roles — remote or Stockholm based</p>
+    <div class="contact-links">
+      <a href="mailto:opeyemitoriola41@gmail.com" class="contact-link">
+        Email Me
+      </a>
+      <a href="https://github.com/GeekyBlessing" class="contact-link" target="_blank">
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/opeyemi-toriola" class="contact-link" target="_blank">
+        LinkedIn
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built by Opeyemi Toriola — Cloud Security Engineer — Stockholm, Sweden</p>
+  </footer>
+
+</body>
+</html>
